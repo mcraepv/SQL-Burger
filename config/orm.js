@@ -1,43 +1,51 @@
 const connection = require('./connection');
+const util = require('util');
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected as id ' + connection.threadId);
-});
+const promiseQuery = util.promisify(connection.query).bind(connection);
 
 const orm = {
-  selectAll: function () {
-    const query = `SELECT * FROM burgers;`;
+  selectAll: async function () {
+    try {
+      const query = `SELECT * FROM burgers;`;
 
-    return connection.query(query, (err, res) => {
+      const response = promiseQuery(query);
+      return response;
+    } catch (err) {
       if (err) throw err;
-      return res;
-    });
+    }
   },
 
-  insertOne: function (burgerName) {
-    const query = `INSERT INTO burgers (burger_name, eaten) VALUES (?, false)`;
+  insertOne: async function (burgerName) {
+    try {
+      const query = `INSERT INTO burgers (burger_name, eaten) VALUES (?, false)`;
 
-    return connection.query(query, burgerName, (err, res) => {
+      const response = await promiseQuery(query, burgerName);
+      if (response.affectedRows === 1) {
+        return `${burgerName} successfully added.`;
+      }
+    } catch (err) {
       if (err) throw err;
-
-      return console.log(`${burgerName} successfully added.`);
-    });
+    }
   },
 
-  updateOne: function (eaten, burgerName) {
-    const query = `
+  updateOne: async function (eaten, burgerName) {
+    try {
+      const query = `
     UPDATE burgers
     SET eaten = ?
     WHERE burger_name = ?
     `;
 
-    return connection.query(query, [eaten, burgerName], (err, res) => {
+      const response = await promiseQuery(query, [eaten, burgerName]);
+      if (response.affectedRows === 1) {
+        return `${burgerName} successfully added.`;
+      }
+    } catch (err) {
       if (err) throw err;
-
-      return console.log(`${burgerName} successfully updated.`);
-    });
+    }
   },
 };
 
 module.exports = orm;
+
+orm.insertOne('Cheeseburger');
