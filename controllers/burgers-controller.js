@@ -1,31 +1,42 @@
 const express = require('express');
 const burger = require('../models/burger');
 
-const app = express();
+const router = express.Router();
 
-const PORT = process.env.PORT || 3000;
+router.get('/', (req, res) => {
+  burger.getAllBurgers().then((burgers) => {
+    console.log(burgers);
 
-const router = {
-  homePage: async function () {
-    try {
-      const data = await burger.getAllBurgers();
-
-      app.get('*', (req, res) => {
-        // res.render('index', { burgers: data });
-        console.log(data);
-      });
-    } catch (err) {
-      if (err) throw err;
-    }
-  },
-  postBurger: async function (burgerName) {
-    app.post('/api/burgers', (req, res) => {});
-  },
-};
-
-app.listen(PORT, () => {
-  console.log('Server listening on: http://localhost:' + PORT);
+    res.render('index', { burgers });
+  });
 });
 
-router.postBurger('Cheeseburger');
-router.homePage();
+router.post('/api/burgers', (req, res) => {
+  burger.insertBurger(req.body.burgerName).then((data) => {
+    if (data) {
+      res.redirect('/');
+    }
+  });
+});
+
+router.put('/api/burgers/:id', (req, res) => {
+  burger.eatBurger(req.params.id).then((data) => {
+    if (data) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
+    }
+  });
+});
+
+router.delete('/api/burgers/:id', (req, res) => {
+  burger.removeBurger(req.params.id).then((data) => {
+    if (data) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
+    }
+  });
+});
+
+module.exports = router;
