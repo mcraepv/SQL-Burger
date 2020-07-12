@@ -1,0 +1,7 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title d-inline-block" data-eaten="{{eaten}}">{{burger_name}}</h5>
+    {{#unless eaten}}<button class="btn btn-primary eat-btn float-right" data-id="{{id}}">Eat Burger!</button>{{/unless}}
+    {{#if eaten}}<button class="btn btn-primary delete-btn float-right" data-id="{{id}}">Delete Burger!</button>{{/if}}
+  </div>
+</div>

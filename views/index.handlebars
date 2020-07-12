@@ -1,0 +1,18 @@
+<div class="row justify-content-center">
+        <div class="col-6 text-center">
+          <h2>Eaten Burgers</h2>
+          {{#each burgers}}
+            {{#unless eaten}}
+              {{> burgers/burger-block eaten=false}}
+            {{/unless}}
+          {{/each}}
+        </div>
+        <div class="col-6 text-center">
+          <h2>Uneaten Burgers</h2>
+          {{#each burgers}}
+            {{#if eaten}}
+              {{> burgers/burger-block eaten=true}}
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
