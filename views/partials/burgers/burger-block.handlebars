@@ -1,7 +1,8 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title d-inline-block" data-eaten="{{eaten}}">{{burger_name}}</h5>
-    {{#unless eaten}}<button class="btn btn-primary eat-btn float-right" data-id="{{id}}">Eat Burger!</button>{{/unless}}
-    {{#if eaten}}<button class="btn btn-primary delete-btn float-right" data-id="{{id}}">Delete Burger!</button>{{/if}}
+    <img src="./assets/img/burger-icon.jpg" alt="burger icon" class="burger-icon d-inline-block float-left" />
+    <h5 class="card-title d-inline-block align-middle mt-4" data-eaten="{{eaten}}">{{burger_name}}</h5>
+    {{#unless eaten}}<button class="btn btn-success eat-btn float-right mt-4" data-id="{{id}}">Eat Burger!</button>{{/unless}}
+    {{#if eaten}}<button class="btn btn-danger delete-btn float-right mt-4" data-id="{{id}}">Delete Burger!</button>{{/if}}
   </div>
 </div>

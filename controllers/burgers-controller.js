@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   burger.getAllBurgers().then((burgers) => {
-    console.log(burgers);
-
     res.render('index', { burgers });
   });
 });

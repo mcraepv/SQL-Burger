@@ -1,1 +1,18 @@
+body {
+  font-family: 'Libre Baskerville', serif;
+}
 
+.card {
+  box-shadow: 10px 5px 5px grey;
+}
+
+.burger-icon {
+  width: 5vw;
+  height: 4vw;
+}
+
+#burger-header {
+  width: 12vw;
+  box-shadow: 6px 5px 5px grey;
+  clip-path: circle(40%);
+}
