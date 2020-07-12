@@ -1,14 +1,22 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
+let connection;
 
-  port: 3306,
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+  connection = mysql.createConnection({
+    host: 'localhost',
 
-  user: 'root',
+    port: 3306,
 
-  password: 'macDATAbase!6799',
-  database: 'burgers_db',
-});
+    user: 'root',
+
+    password: 'macDATAbase!6799',
+    database: 'burgers_db',
+  });
+}
+
+connection.connect();
 
 module.exports = connection;
