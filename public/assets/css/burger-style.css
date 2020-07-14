@@ -4,6 +4,11 @@ body {
 
 .card {
   box-shadow: 10px 5px 5px grey;
+  transition: transform 100ms;
+}
+
+.card:hover {
+  transform: scale(1.1, 1.1);
 }
 
 .burger-icon {
